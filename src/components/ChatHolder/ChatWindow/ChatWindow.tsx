@@ -1,39 +1,48 @@
-import React from 'react';
+import React, {MutableRefObject, RefObject, useEffect, useRef} from 'react';
 import styled from "styled-components";
 import MessageHolder from "../MessageHolder/MessageHolder";
 import ChatHeader from "../ChatHeader/ChatHeader";
 import {UserId} from "../../../interfaces/interfaces";
 
 
+const ChatWindowContainer = styled.ul<{ ref?: MutableRefObject<HTMLUListElement> }>`
+  grid-row: 2;
+  padding: 1em;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+`
+
 const ChatWindow = () => {
 
-  const ChatWindowContainer = styled.section`
-    grid-row: 2;
-    padding: 1em;
-    overflow-y: scroll;
+  const messageList = useRef() as MutableRefObject<HTMLUListElement>;
 
-    ::-webkit-scrollbar {
-      width: 20px;
-    }
+  useEffect(() => {
+   messageList.current.scrollTo(0, messageList.current.scrollHeight)
+  }, []);
 
-    ::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: #d6dee1;
-      border-radius: 20px;
-      border: 6px solid transparent;
-      background-clip: content-box;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #a8bbbf;
-    }
-  `
 
   return (
-    <ChatWindowContainer>
+    <ChatWindowContainer
+      ref={messageList}
+    >
 
       <MessageHolder
         text='Hola'

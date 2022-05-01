@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import {UserId, ChannelNames, ChannelId} from "../../interfaces/interfaces";
 import ChannelButton from "./ChannelButton";
+import {ChatContextManager} from "../../context/chatContext";
 
 const MenuContainer = styled.div`
   grid-column: 1/4;
@@ -29,16 +30,26 @@ const SelectUser = styled.select`
 
 const Menu = () => {
 
+  const {setSelectedUserId} = useContext(ChatContextManager);
+
   const users = Object.values(UserId)
   const channels = Object.values(ChannelNames).map((channel, index) => ({
     channelName: channel,
     channelId: `${index + 1}` as ChannelId
   }))
 
+  const switchUser = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (setSelectedUserId) {
+      setSelectedUserId(event.target.value as UserId)
+    }
+  }
+
   return (
     <MenuContainer>
       <label>1. Choose your user</label>
-      <SelectUser>
+      <SelectUser
+        onChange={switchUser}
+      >
         {
           users.map(user => <option value={user} key={user} id={user}>{user}</option>)
         }

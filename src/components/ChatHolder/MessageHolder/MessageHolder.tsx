@@ -6,7 +6,7 @@ import MessageStatus from "./MessageStatus";
 import {Message, UserId} from "../../../interfaces/interfaces";
 import {ChatContextManager} from "../../../context/chatContext";
 
-const MessageHolderComponent = styled.div<{ isCurrentUser: boolean }>`
+const MessageHolderComponent = styled.li<{ isCurrentUser: boolean }>`
   width: 90%;
   padding: 1em;
   display: flex;

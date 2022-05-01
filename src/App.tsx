@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
 import {ChannelId, ChannelNames, ChannelProperties, UserId} from "./interfaces/interfaces";
 import {ChatContextManager} from "./context/chatContext";
 import styled from 'styled-components'
