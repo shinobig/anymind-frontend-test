@@ -1,9 +1,12 @@
 import {createContext} from "react";
-import {ChatContext, UserId} from "../interfaces/interfaces";
+import {ChannelNames, ChatContext, UserId} from "../interfaces/interfaces";
 
 const initialState: ChatContext = {
-  userId: UserId.SAM,
-  channelId: "1"
+  selectedUserId: UserId.SAM,
+  channel: {
+    channelId: '1',
+    channelName: ChannelNames.GENERAL
+  }
 }
 
 export const ChatContextManager = createContext<ChatContext>(initialState)
