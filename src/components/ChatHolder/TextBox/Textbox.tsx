@@ -1,7 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from "styled-components";
 import GeneralButton from "../../SharedStyles/GeneralButton";
 import {IoIosSend} from 'react-icons/io'
+import {ChatContextManager} from "../../../context/chatContext";
+import {Message} from "../../../interfaces/interfaces";
+import {useMutation} from "@apollo/client";
+import {POST_MESSAGE} from "../../../graphql/mutations";
+import {postMessage} from "../../../utils/postMessage";
 
 const TextBoxHolder = styled.div`
   background-color: #90caf9;
@@ -25,17 +30,37 @@ const Input = styled.textarea`
 const TextBox = () => {
 
   const [messageToSend, setMessageToSend] = useState('');
+  const {chat, setChat, selectedUserId, channel} = useContext(ChatContextManager);
+  const [createMessage] = useMutation(POST_MESSAGE)
 
-  const sendMessage = () => {
-    console.log(messageToSend)
+  const sendMessage = async () => {
+
+    let currentChat = [...chat]
+
+    let newMessage: Message = {
+      text: messageToSend,
+      userId: selectedUserId,
+      datetime: new Date()
+    }
+
+    newMessage = await postMessage(newMessage, channel.channelId, createMessage)
+
+    console.log('new message', newMessage)
+
+    currentChat.push(newMessage)
+    setChat && setChat(currentChat)
+    setMessageToSend('')
   }
 
 
   return (
     <TextBoxHolder>
-      <Input onChange={e => {
-        setMessageToSend(e.target.value)
-      }}/>
+      <Input
+        onChange={e => {
+          setMessageToSend(e.target.value)
+        }}
+        value={messageToSend}
+      />
       <GeneralButton
         height={100}
         margin={'0'}

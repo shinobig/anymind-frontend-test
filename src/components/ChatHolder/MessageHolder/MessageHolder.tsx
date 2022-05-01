@@ -5,6 +5,9 @@ import MessageBubble from "./MessageBubble";
 import MessageStatus from "./MessageStatus";
 import {Message, UserId} from "../../../interfaces/interfaces";
 import {ChatContextManager} from "../../../context/chatContext";
+import {postMessage} from "../../../utils/postMessage";
+import {useMutation} from "@apollo/client";
+import {POST_MESSAGE} from "../../../graphql/mutations";
 
 const MessageHolderComponent = styled.li<{ isCurrentUser: boolean }>`
   width: 90%;
@@ -16,21 +19,40 @@ const MessageHolderComponent = styled.li<{ isCurrentUser: boolean }>`
 const MessageHolder: FC<Message> = ({
                                       userId,
                                       text,
-                                      dateTime,
-                                      messageId
+                                      datetime,
+                                      error
                                     }) => {
 
 
-  const {selectedUserId} = useContext(ChatContextManager);
+  const {selectedUserId, channel, chat, setChat} = useContext(ChatContextManager);
 
   const isCurrentUser = selectedUserId === userId
+
+  const [createMessage] = useMutation(POST_MESSAGE)
+
+  const resendMessage = async () => {
+    let currentChat = [...chat]
+    let messageToSend: Message = {
+      text: text,
+      userId: userId,
+      datetime: new Date()
+    }
+
+    messageToSend = await postMessage(messageToSend, channel.channelId, createMessage)
+
+    currentChat[currentChat.length - 1] = messageToSend
+    setChat && setChat(currentChat)
+
+  }
 
   if (isCurrentUser) {
     return (
       <MessageHolderComponent isCurrentUser={isCurrentUser}>
         <MessageStatus
           isCurrentUser={isCurrentUser}
-          dateTime={dateTime}
+          dateTime={datetime}
+          error={error}
+          resendMessage={resendMessage}
         />
         <MessageBubble
           text={text}
@@ -50,7 +72,7 @@ const MessageHolder: FC<Message> = ({
         />
         <MessageStatus
           isCurrentUser={isCurrentUser}
-          dateTime={dateTime}/>
+          dateTime={datetime}/>
       </MessageHolderComponent>
     );
   }

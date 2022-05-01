@@ -18,22 +18,23 @@ const ChannelButtonHolder = styled.button<ChannelButtonHolderProps>`
   background-color: ${({selected}) => selected ? '#2196f3' : '#e3f2fd'};
   border: none;
   font-size: ${({fontSize}) => fontSize ? `${fontSize}px` : '18px'};
-  box-shadow: 0 2px 10px #64b5f6;
   outline: none;
   color: ${({selected}) => selected ? 'white' : 'black'};
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Montserrat', sans-serif;
+
   &:hover {
     background-color: #bbdefb;
     cursor: pointer;
   }
-  &:disabled{
+
+  &:disabled {
     background-color: #cfd8dc;
     color: #546e7a;
   }
-  
+
 
 `
 

@@ -6,7 +6,8 @@ const initialState: ChatContext = {
   channel: {
     channelId: '1',
     channelName: ChannelNames.GENERAL
-  }
+  },
+  chat: []
 }
 
 export const ChatContextManager = createContext<ChatContext>(initialState)

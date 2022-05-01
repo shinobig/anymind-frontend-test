@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ChannelId, ChannelNames, ChannelProperties, UserId} from "./interfaces/interfaces";
+import {ChannelNames, ChannelProperties, Message, UserId} from "./interfaces/interfaces";
 import {ChatContextManager} from "./context/chatContext";
 import styled from 'styled-components'
 import Menu from "./components/Menu/Menu";
@@ -24,7 +24,7 @@ function App() {
 
   const [selectedUserId, setSelectedUserId] = useState<UserId>(UserId.SAM);
   const [channel, setChannel] = useState<ChannelProperties>({channelId: '1', channelName: ChannelNames.GENERAL});
-
+  const [chat, setChat] = useState<Message[]>([]);
 
   return (
     <ChatContextManager.Provider
@@ -32,7 +32,9 @@ function App() {
         selectedUserId,
         channel,
         setSelectedUserId,
-        setChannel
+        setChannel,
+        chat,
+        setChat
       }}
     >
       <Main>

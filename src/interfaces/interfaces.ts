@@ -16,9 +16,10 @@ export type ChannelId = '1' | '2' | '3'
 
 export interface Message {
   text: string
-  messageId: string
-  dateTime: Date
   userId: UserId
+  messageId?: string
+  datetime: Date
+  error?: boolean
 }
 
 export interface ChannelProperties {
@@ -29,6 +30,8 @@ export interface ChannelProperties {
 export interface ChatContext {
   selectedUserId: UserId,
   channel: ChannelProperties
+  chat: Message[]
   setSelectedUserId?: Dispatch<SetStateAction<UserId>>
   setChannel?: Dispatch<SetStateAction<ChannelProperties>>
+  setChat?: Dispatch<SetStateAction<Message[]>>
 }

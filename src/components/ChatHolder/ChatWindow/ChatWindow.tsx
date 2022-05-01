@@ -1,8 +1,10 @@
-import React, {MutableRefObject, RefObject, useEffect, useRef} from 'react';
+import React, {MutableRefObject, RefObject, useContext, useEffect, useRef, useState} from 'react';
 import styled from "styled-components";
 import MessageHolder from "../MessageHolder/MessageHolder";
 import ChatHeader from "../ChatHeader/ChatHeader";
-import {UserId} from "../../../interfaces/interfaces";
+import {Message, UserId} from "../../../interfaces/interfaces";
+import {useLatestMessage} from "../../../Hooks/Hooks";
+import {ChatContextManager} from "../../../context/chatContext";
 
 
 const ChatWindowContainer = styled.ul<{ ref?: MutableRefObject<HTMLUListElement> }>`
@@ -33,51 +35,43 @@ const ChatWindowContainer = styled.ul<{ ref?: MutableRefObject<HTMLUListElement>
 const ChatWindow = () => {
 
   const messageList = useRef() as MutableRefObject<HTMLUListElement>;
+  const {channel, chat, setChat} = useContext(ChatContextManager);
+  const {data, loading, error} = useLatestMessage(channel.channelId)
+
 
   useEffect(() => {
-   messageList.current.scrollTo(0, messageList.current.scrollHeight)
-  }, []);
+    if (data?.fetchLatestMessages?.length > 0 && setChat) {
+      let reversedArray = [...data.fetchLatestMessages]
+      setChat(reversedArray.reverse())
+    }
+  }, [data]);
 
+  useEffect(() => {
+    // Ensure that chat goes to bottom when loading and posting new messages
+    messageList.current.scrollTo(0, messageList.current.scrollHeight)
+  }, [chat]);
 
   return (
     <ChatWindowContainer
       ref={messageList}
     >
 
-      <MessageHolder
-        text='Hola'
-        userId={UserId.RUSSEL}
-        dateTime={new Date()}
-        messageId='1'
-      />
-      <MessageHolder
-        text='Hola saodjoasjdoasijdoajsdoijasodjoasj oasijdoiasjdoia joiasdjoia joasijdo iasjdoas jdoasijd oasijd oaisjdoia sjdoiasj doiasjd oiasjdo iasjdoiasj doiasjdo iajsoidj aso'
-        userId={UserId.JOYSE}
-        dateTime={new Date()}
-        messageId='1'
-      />
-      <MessageHolder
-        text='Hola'
-        userId={UserId.SAM}
-        dateTime={new Date()}
-        messageId='1'
-      />
-      <MessageHolder
-        text='Hola'
-        userId={UserId.SAM}
-        dateTime={new Date()}
-        messageId='1'
-      /><MessageHolder
-      text='Hola'
-      userId={UserId.SAM}
-      dateTime={new Date()}
-      messageId='1'
-    /><MessageHolder
-      text='Hola'
-      userId={UserId.SAM}
-      dateTime={new Date()}
-      messageId='1'
-    />
+      {
+        chat.length > 0 &&
+        chat.map(({text, userId, messageId, datetime, error}: Message, index) => {
+            return (
+              <MessageHolder
+                text={text}
+                messageId={userId}
+                datetime={new Date(datetime)}
+                userId={userId as UserId}
+                key={messageId ? messageId : `${index}-${userId}`}
+                error={error}
+              />
+            )
+          }
+        )
+      }
 
     </ChatWindowContainer>
   );

@@ -6,6 +6,18 @@ query MessagesFetchLatest($channelIdSearch: String!){
       text
       userId
       messageId
+      datetime
     }
   }
+`
+
+export const FETCH_MORE_MESSAGES = gql`
+query MessagesFetchMore($channelIdSearch: String!, $oldestAvailableMessage: String!){
+  fetchMoreMessages(channelId: $channelIdSearch, messageId: $oldestAvailableMessage, old: true){
+    text,
+    userId,
+    messageId,
+    datetime
+  }
+}
 `
