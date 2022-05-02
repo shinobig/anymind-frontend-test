@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {KeyboardEvent, useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import GeneralButton from "../../SharedStyles/GeneralButton";
 import {IoIosSend} from 'react-icons/io'
@@ -7,6 +7,7 @@ import {Message} from "../../../interfaces/interfaces";
 import {useMutation} from "@apollo/client";
 import {POST_MESSAGE} from "../../../graphql/mutations";
 import {postMessage} from "../../../utils/postMessage";
+import {getMemoizedInput, memoizeInput} from "../../../utils/memoizeInput";
 
 const TextBoxHolder = styled.div`
   background-color: #90caf9;
@@ -33,6 +34,14 @@ const TextBox = () => {
   const {chat, setChat, selectedUserId, channel} = useContext(ChatContextManager);
   const [createMessage] = useMutation(POST_MESSAGE)
 
+  useEffect(() => {
+    let lastUserInput = getMemoizedInput()
+    if (lastUserInput) {
+      setMessageToSend(lastUserInput)
+    }
+  }, []);
+
+
   const sendMessage = async () => {
 
     let currentChat = [...chat]
@@ -44,12 +53,16 @@ const TextBox = () => {
     }
 
     newMessage = await postMessage(newMessage, channel.channelId, createMessage)
-
-    console.log('new message', newMessage)
-
     currentChat.push(newMessage)
     setChat && setChat(currentChat)
     setMessageToSend('')
+    memoizeInput('')
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!e.shiftKey && e.key === 'Enter' && messageToSend) {
+      sendMessage()
+    }
   }
 
 
@@ -58,7 +71,9 @@ const TextBox = () => {
       <Input
         onChange={e => {
           setMessageToSend(e.target.value)
+          memoizeInput(e.target.value)
         }}
+        onKeyDown={handleKeyDown}
         value={messageToSend}
       />
       <GeneralButton

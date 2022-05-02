@@ -5,6 +5,7 @@ import ChatHeader from "../ChatHeader/ChatHeader";
 import {Message, UserId} from "../../../interfaces/interfaces";
 import {useLatestMessage} from "../../../Hooks/Hooks";
 import {ChatContextManager} from "../../../context/chatContext";
+import Spinner from "../../Spinner/Spinner";
 
 
 const ChatWindowContainer = styled.ul<{ ref?: MutableRefObject<HTMLUListElement> }>`
@@ -38,9 +39,8 @@ const ChatWindow = () => {
   const {channel, chat, setChat} = useContext(ChatContextManager);
   const {data, loading, error} = useLatestMessage(channel.channelId)
 
-
   useEffect(() => {
-    if (data?.fetchLatestMessages?.length > 0 && setChat) {
+    if (data?.fetchLatestMessages && setChat) {
       let reversedArray = [...data.fetchLatestMessages]
       setChat(reversedArray.reverse())
     }
@@ -55,24 +55,27 @@ const ChatWindow = () => {
     <ChatWindowContainer
       ref={messageList}
     >
-
       {
-        chat.length > 0 &&
-        chat.map(({text, userId, messageId, datetime, error}: Message, index) => {
-            return (
-              <MessageHolder
-                text={text}
-                messageId={userId}
-                datetime={new Date(datetime)}
-                userId={userId as UserId}
-                key={messageId ? messageId : `${index}-${userId}`}
-                error={error}
-              />
-            )
-          }
-        )
+        loading ?
+          <Spinner/> :
+          <>
+            {
+              chat.map(({text, userId, messageId, datetime, error}: Message, index) => {
+                  return (
+                    <MessageHolder
+                      text={text}
+                      messageId={userId}
+                      datetime={new Date(datetime)}
+                      userId={userId as UserId}
+                      key={messageId ? messageId : `${index}-${userId}`}
+                      error={error}
+                    />
+                  )
+                }
+              )
+            }
+          </>
       }
-
     </ChatWindowContainer>
   );
 };

@@ -14,7 +14,7 @@ const ChannelButtonHolder = styled.button<ChannelButtonHolderProps>`
   height: ${({height}) => height ? `${height}%` : 'initial'};
   margin: ${({margin}) => margin ? margin : '.7em 0'};
   padding: .5em;
-  border-radius: 5px;
+  border-radius: 2px;
   background-color: ${({selected}) => selected ? '#2196f3' : '#e3f2fd'};
   border: none;
   font-size: ${({fontSize}) => fontSize ? `${fontSize}px` : '18px'};
@@ -34,8 +34,6 @@ const ChannelButtonHolder = styled.button<ChannelButtonHolderProps>`
     background-color: #cfd8dc;
     color: #546e7a;
   }
-
-
 `
 
 export default ChannelButtonHolder

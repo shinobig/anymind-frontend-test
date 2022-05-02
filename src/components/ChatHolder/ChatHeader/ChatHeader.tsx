@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {ChatContextManager} from "../../../context/chatContext";
 import GeneralButton from "../../SharedStyles/GeneralButton";
@@ -20,27 +20,39 @@ const ChatHeaderHolder = styled.div`
 
 const ChatHeader = () => {
 
-  const {channel, chat} = useContext(ChatContextManager);
+  const {channel, chat, setChat} = useContext(ChatContextManager);
 
   const [fetchMore, response] = useFetchMore()
+  const [successfullyFetched, setSuccessfullyFetched] = useState(false);
 
   const readMoreMessages = () => {
-    console.log(chat[0].messageId)
     if (chat.length === 10 && chat[0].messageId) {
-
       fetchMore({
         variables: {
           channelIdSearch: channel.channelId,
           oldestAvailableMessage: chat[0].messageId
         }
       }).then(
-        data =>
-          console.log(data)
+        response => {
+          console.log('res', response)
+          if (response?.data?.fetchMoreMessages.length > 0) {
+            let currentChat = [...response.data.fetchMoreMessages, ...chat]
+            setChat && setChat(currentChat)
+            setSuccessfullyFetched(true)
+          }
+        }
       )
-      console.log(response)
     }
-
   }
+
+  useEffect(() => {
+    if(successfullyFetched){
+      setTimeout(() => {
+        setSuccessfullyFetched(false)
+      }, 2000)
+    }
+  }, [successfullyFetched]);
+
 
 
   return (
@@ -48,9 +60,14 @@ const ChatHeader = () => {
       <h2>
         {channel.channelName}
       </h2>
+      {
+        successfullyFetched &&
+        <p>More messages successfully loaded.</p>
+      }
       <GeneralButton
         onClick={readMoreMessages}
         width={25}
+        disabled={chat.length < 10}
       >
         Read More&nbsp;<AiOutlineArrowUp/>
       </GeneralButton>
