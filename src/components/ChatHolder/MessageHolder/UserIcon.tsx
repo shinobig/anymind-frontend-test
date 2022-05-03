@@ -1,7 +1,7 @@
 import React, {FC, useContext} from 'react';
 import styled from "styled-components";
 import {UserId} from "../../../interfaces/interfaces";
-import {selectIcon} from "../../../utils/IconSelecto";
+import {selectIcon} from "../../../utils/IconSelector";
 import {ChatContextManager} from "../../../context/chatContext";
 
 

@@ -4,8 +4,10 @@ import {ChannelId} from "../interfaces/interfaces";
 import {POST_MESSAGE} from "../graphql/mutations";
 
 export const useLatestMessage = (channelId: ChannelId) => {
+
+
   return useQuery(FETCH_LATEST_MESSAGES, {
-    fetchPolicy: 'network-only',
+   fetchPolicy: 'network-only',
     variables: {
       channelIdSearch: channelId,
     }

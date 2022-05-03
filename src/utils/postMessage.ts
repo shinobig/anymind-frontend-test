@@ -1,6 +1,7 @@
 import {ChannelId, Message} from "../interfaces/interfaces";
 
-export const postMessage = async (newMessage: Message, channelId: ChannelId, createMessage: any) => {
+
+export const postMessage = async (newMessage: Message, channelId: ChannelId, createMessage: any, test?: boolean) => {
   try {
     const {data} = await createMessage({
       variables: {
@@ -9,12 +10,12 @@ export const postMessage = async (newMessage: Message, channelId: ChannelId, cre
         text: newMessage.text
       }
     })
-    console.log('todo bien')
-    newMessage.messageId = data.postMessage.messageId;
-  } catch (e) {
 
-    console.log('error')
+    newMessage.messageId = data.postMessage.messageId;
+  } catch (e: any) {
+
     newMessage.error = true
   }
+
   return newMessage
 }

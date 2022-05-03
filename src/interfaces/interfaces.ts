@@ -17,8 +17,8 @@ export type ChannelId = '1' | '2' | '3'
 export interface Message {
   text: string
   userId: UserId
-  messageId?: string
   datetime: Date
+  messageId?: string
   error?: boolean
 }
 

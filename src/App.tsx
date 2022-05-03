@@ -6,6 +6,8 @@ import Menu from "./components/Menu/Menu";
 import Header from "./components/Header/Header";
 
 import ChatHolder from "./components/ChatHolder/ChatHolder";
+import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from "@apollo/client";
+import ReactDOM from "react-dom/client";
 
 const Main = styled.main`
   display: grid;
@@ -20,6 +22,15 @@ const Main = styled.main`
   min-height: 90vh;
 `
 
+
+const client = new ApolloClient({
+  connectToDevTools: true,
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: 'https://angular-test-backend-yc4c5cvnnq-an.a.run.app/graphql'
+  })
+})
+
 function App() {
 
   const [selectedUserId, setSelectedUserId] = useState<UserId>(UserId.SAM);
@@ -27,22 +38,25 @@ function App() {
   const [chat, setChat] = useState<Message[]>([]);
 
   return (
-    <ChatContextManager.Provider
-      value={{
-        selectedUserId,
-        channel,
-        setSelectedUserId,
-        setChannel,
-        chat,
-        setChat
-      }}
-    >
-      <Main>
-        <Header/>
-        <Menu/>
-        <ChatHolder/>
-      </Main>
-    </ChatContextManager.Provider>
+    <ApolloProvider client={client}>
+
+      <ChatContextManager.Provider
+        value={{
+          selectedUserId,
+          channel,
+          setSelectedUserId,
+          setChannel,
+          chat,
+          setChat
+        }}
+      >
+        <Main>
+          <Header/>
+          <Menu/>
+          <ChatHolder/>
+        </Main>
+      </ChatContextManager.Provider>
+    </ApolloProvider>
   );
 }
 

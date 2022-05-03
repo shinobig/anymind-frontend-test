@@ -7,15 +7,14 @@ const ChannelButton: FC<ChannelProperties> = ({channelName, channelId}) => {
   const {channel, setChannel} = useContext(ChatContextManager);
 
   const changeChannelId = () => {
-    if (setChannel && channel.channelId !== channelId) {
-      setChannel({channelId: channelId, channelName: channelName})
-    }
+    setChannel && setChannel({channelId: channelId, channelName: channelName})
   }
 
   return (
     <GeneralButton
       selected={channel.channelId === channelId}
       onClick={changeChannelId}
+      id={`button-${channelName}`}
     >
       {channelName}
     </GeneralButton>

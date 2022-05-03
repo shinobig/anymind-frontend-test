@@ -33,6 +33,7 @@ const MessageStatus: FC<MessageStatusProps> = ({
                                                }) => {
   const hour = getHourAndMinutes(dateTime)
 
+
   return (
     <MessageStatusHolder>
       {hour}
@@ -51,6 +52,7 @@ const MessageStatus: FC<MessageStatusProps> = ({
       {
         error && resendMessage &&
         <ResendButton
+          id='resend-button'
           onClick={resendMessage as MouseEventHandler}
         >
           Resend

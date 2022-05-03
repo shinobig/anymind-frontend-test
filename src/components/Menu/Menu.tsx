@@ -39,9 +39,7 @@ const Menu = () => {
   }))
 
   const switchUser = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (setSelectedUserId) {
-      setSelectedUserId(event.target.value as UserId)
-    }
+    setSelectedUserId && setSelectedUserId(event.target.value as UserId)
   }
 
 
@@ -49,6 +47,7 @@ const Menu = () => {
     <MenuContainer>
       <label>1. Choose your user</label>
       <SelectUser
+        id='select-user'
         onChange={switchUser}
       >
         {

@@ -52,7 +52,9 @@ const TextBox = () => {
       datetime: new Date()
     }
 
+
     newMessage = await postMessage(newMessage, channel.channelId, createMessage)
+
     currentChat.push(newMessage)
     setChat && setChat(currentChat)
     setMessageToSend('')
@@ -69,6 +71,7 @@ const TextBox = () => {
   return (
     <TextBoxHolder>
       <Input
+        id='chat-text-area'
         onChange={e => {
           setMessageToSend(e.target.value)
           memoizeInput(e.target.value)
@@ -77,6 +80,7 @@ const TextBox = () => {
         value={messageToSend}
       />
       <GeneralButton
+        id='send-button'
         height={100}
         margin={'0'}
         fontSize={20}

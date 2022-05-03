@@ -48,8 +48,9 @@ const ChatWindow = () => {
 
   useEffect(() => {
     // Ensure that chat goes to bottom when loading and posting new messages
-    messageList.current.scrollTo(0, messageList.current.scrollHeight)
+    messageList?.current?.scrollTo(0, messageList.current.scrollHeight)
   }, [chat]);
+
 
   return (
     <ChatWindowContainer
@@ -61,6 +62,7 @@ const ChatWindow = () => {
           <>
             {
               chat.map(({text, userId, messageId, datetime, error}: Message, index) => {
+
                   return (
                     <MessageHolder
                       text={text}

@@ -31,6 +31,14 @@
       "react-app/jest"
     ]
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "!src/index.tsx",
+      "!src/__test__/mockQueries.ts",
+      "!src/interfaces/interfaces.ts",
+      "!src/react-app-env.d.ts"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",

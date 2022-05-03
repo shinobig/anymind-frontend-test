@@ -26,7 +26,7 @@ const ChatHeader = () => {
   const [successfullyFetched, setSuccessfullyFetched] = useState(false);
 
   const readMoreMessages = () => {
-    if (chat.length === 10 && chat[0].messageId) {
+    if (chat[0].messageId) {
       fetchMore({
         variables: {
           channelIdSearch: channel.channelId,
@@ -34,7 +34,6 @@ const ChatHeader = () => {
         }
       }).then(
         response => {
-          console.log('res', response)
           if (response?.data?.fetchMoreMessages.length > 0) {
             let currentChat = [...response.data.fetchMoreMessages, ...chat]
             setChat && setChat(currentChat)
@@ -46,7 +45,7 @@ const ChatHeader = () => {
   }
 
   useEffect(() => {
-    if(successfullyFetched){
+    if (successfullyFetched) {
       setTimeout(() => {
         setSuccessfullyFetched(false)
       }, 2000)
@@ -54,20 +53,22 @@ const ChatHeader = () => {
   }, [successfullyFetched]);
 
 
-
   return (
-    <ChatHeaderHolder>
-      <h2>
+    <ChatHeaderHolder
+      id="chat-header-holder"
+    >
+      <h2 id='channel-title'>
         {channel.channelName}
       </h2>
       {
         successfullyFetched &&
-        <p>More messages successfully loaded.</p>
+        <p id='success-message'>More messages successfully loaded.</p>
       }
       <GeneralButton
         onClick={readMoreMessages}
         width={25}
         disabled={chat.length < 10}
+        id='read-more-button'
       >
         Read More&nbsp;<AiOutlineArrowUp/>
       </GeneralButton>

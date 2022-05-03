@@ -3,17 +3,17 @@ import {ReactComponent as SamIcon} from '../Icons/SamIcon.svg'
 import {ReactComponent as JoyseIcon} from '../Icons/JoiseIcon.svg'
 import {UserId} from "../interfaces/interfaces";
 
-export const selectIcon = (userId: UserId) => {
+export const selectIcon = (userId: UserId | undefined) => {
 
   switch (userId) {
     case UserId.SAM:
-      return <SamIcon/>
+      return <SamIcon id='sam-icon'/>
     case UserId.RUSSEL :
-      return <RusselIcon/>
+      return <RusselIcon id='russel-icon'/>
     case UserId.JOYSE:
-      return <JoyseIcon/>
+      return <JoyseIcon id='joyse-icon'/>
     default:
-      return <SamIcon/>
+      return <SamIcon id='sam-icon'/>
   }
 
 }

@@ -30,15 +30,18 @@ const MessageHolder: FC<Message> = ({
 
   const [createMessage] = useMutation(POST_MESSAGE)
 
+
   const resendMessage = async () => {
     let currentChat = [...chat]
+
     let messageToSend: Message = {
       text: text,
       userId: userId,
       datetime: new Date()
     }
 
-    messageToSend = await postMessage(messageToSend, channel.channelId, createMessage)
+    messageToSend = await postMessage(messageToSend, channel.channelId, createMessage, true)
+
 
     currentChat[currentChat.length - 1] = messageToSend
     setChat && setChat(currentChat)
