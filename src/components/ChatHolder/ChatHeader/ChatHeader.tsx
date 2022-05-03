@@ -3,11 +3,7 @@ import styled from "styled-components";
 import {ChatContextManager} from "../../../context/chatContext";
 import GeneralButton from "../../SharedStyles/GeneralButton";
 import {AiOutlineArrowUp} from "react-icons/ai";
-//import {fetchMore, useFetchMore} from "../../../Hooks/Hooks";
-import {useLazyQuery} from "@apollo/client";
-import {FETCH_MORE_MESSAGES} from "../../../graphql/queries";
 import {useFetchMore} from "../../../Hooks/Hooks";
-
 
 const ChatHeaderHolder = styled.div`
   display: flex;
@@ -21,8 +17,7 @@ const ChatHeaderHolder = styled.div`
 const ChatHeader = () => {
 
   const {channel, chat, setChat} = useContext(ChatContextManager);
-
-  const [fetchMore, response] = useFetchMore()
+  const [fetchMore] = useFetchMore()
   const [successfullyFetched, setSuccessfullyFetched] = useState(false);
 
   const readMoreMessages = () => {

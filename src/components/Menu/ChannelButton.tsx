@@ -1,5 +1,5 @@
 import React, {FC, useContext} from 'react';
-import {ChannelId, ChannelNames, ChannelProperties} from "../../interfaces/interfaces";
+import {ChannelProperties} from "../../interfaces/interfaces";
 import {ChatContextManager} from "../../context/chatContext";
 import GeneralButton from "../SharedStyles/GeneralButton";
 

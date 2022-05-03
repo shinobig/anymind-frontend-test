@@ -7,7 +7,6 @@ import Header from "./components/Header/Header";
 
 import ChatHolder from "./components/ChatHolder/ChatHolder";
 import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from "@apollo/client";
-import ReactDOM from "react-dom/client";
 
 const Main = styled.main`
   display: grid;
@@ -21,7 +20,6 @@ const Main = styled.main`
   max-height: 90vh;
   min-height: 90vh;
 `
-
 
 const client = new ApolloClient({
   connectToDevTools: true,

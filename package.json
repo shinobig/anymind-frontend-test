@@ -23,7 +23,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "test": "react-scripts test --verbose --coverage --watchAll=false"
+    "test": "react-scripts test --verbose --coverage --watchAll=false",
+    "make-badges": "istanbul-badges-readme"
   },
   "eslintConfig": {
     "extends": [
@@ -32,6 +33,9 @@
     ]
   },
   "jest": {
+    "coverageReporters": [
+      "json-summary"
+    ],
     "collectCoverageFrom": [
       "!src/index.tsx",
       "!src/__test__/mockQueries.ts",
@@ -50,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "istanbul-badges-readme": "^1.8.1"
   }
 }

@@ -1,46 +1,148 @@
-# Getting Started with Create React App
+# One Day Chat Application Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the Challenge application for AnyMind, developed by Victor Shinobi Toshiki Gakiya Cruz.
 
-## Available Scripts
 
-In the project directory, you can run:
+## Tech Stack and Dependencies
+* React.js
+* Jest
+* TypeScript
+* GraphQl
+* Apollo/Client
+* Styled-components
+* Istanbul-badges-readme
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Clone the repository
+```bash
+git clone https://github.com/shinobig/anymind-frontend-test.git
+```
 
-### `npm test`
+2. Install npm packages in the root directory
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Run the project
 
-### `npm run build`
+[This project uses the default configuration from the NPX react project generator](https://reactjs.org/docs/create-a-new-react-app.html)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm start
+```
+Please note that this project was created with the node version 18.1.0, on node version 16.14.2, older versions might not work.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If you see the following message, it means that the application is up and running in [http://localhost:3000/](http://localhost:3000/) (The application should open a browser tab automatically)
+```bash
+No issues found.
+```
 
-### `npm run eject`
+## About this project
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This project matches the following points (Described in the test PDF document):
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+:heavy_check_mark: Users can talk with eachother.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+:heavy_check_mark: User can choose from three predefined users
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+:heavy_check_mark: User can change the channel
 
-## Learn More
+:heavy_check_mark: Whenever a channel change, it displays the latest message
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+:heavy_check_mark: Whenever the HTML petition returns an error, an error message is displayed and the option to resend the message
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+:heavy_check_mark: When the user reopen the page, the text editor maintains the text
+
+:heavy_check_mark: Suggested better UI
+
+### Context API
+
+The application handles 3 main properties in the context API, the channel Id, the selected user and the chat itself. That way, it is easier to manage verification and sending new messages.
+
+### Components
+All of the components in this project are functional components.
+
+### Project Structure
+
+```bash
+src
+├── App.tsx
+├── components
+│   ├── ChatHolder
+│   │   ├── ChatHeader
+│   │   │   └── ChatHeader.tsx
+│   │   ├── ChatHolder.tsx
+│   │   ├── ChatWindow
+│   │   │   └── ChatWindow.tsx
+│   │   ├── MessageHolder
+│   │   │   ├── MessageBubble.tsx
+│   │   │   ├── MessageHolder.tsx
+│   │   │   ├── MessageStatus.tsx
+│   │   │   └── UserIcon.tsx
+│   │   └── TextBox
+│   │       └── Textbox.tsx
+│   ├── Header
+│   │   └── Header.tsx
+│   ├── Menu
+│   │   ├── ChannelButton.tsx
+│   │   └── Menu.tsx
+│   ├── SharedStyles
+│   │   └── GeneralButton.ts
+│   └── Spinner
+│       └── Spinner.tsx
+├── context
+│   └── chatContext.ts
+├── graphql
+│   ├── mutations.ts
+│   └── queries.ts
+├── Hooks
+│   └── Hooks.ts
+├── Icons
+│   ├── JoiseIcon.svg
+│   ├── RusselIcon.svg
+│   └── SamIcon.svg
+├── index.css
+├── index.tsx
+├── interfaces
+│   └── interfaces.ts
+├── logo.svg
+├── react-app-env.d.ts
+├── setupTests.ts
+├── __test__
+│   ├── App.test.tsx
+│   ├── components
+│   │   ├── ChatHolder.test.tsx
+│   │   ├── Menu.test.tsx
+│   │   ├── MessageHolder.test.tsx
+│   │   ├── MockAppComponent.tsx
+│   │   └── TextBox.test.tsx
+│   ├── mockQueries.ts
+│   └── testUtils
+│       └── icons.test.tsx
+└── utils
+    ├── IconSelector.tsx
+    ├── memoizeInput.ts
+    ├── postMessage.ts
+    └── timeUtils.ts
+
+```
+
+
+
+
+## Tests
+In order to run the tests and create a report document, run the following command in the root directory:
+```bash
+npm run test
+```
+The report document will be stored in the following directory as an HTML file.
+```bash
+__root__/coverage/lcov-report/index.html
+```
+
+| Statements                  | Branches                | Functions                 | Lines             |
+| --------------------------- | ----------------------- | ------------------------- | ----------------- |
+| ![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-100%25-brightgreen.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg?style=flat) |

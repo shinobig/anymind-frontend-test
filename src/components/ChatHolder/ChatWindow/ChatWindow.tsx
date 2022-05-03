@@ -1,7 +1,6 @@
-import React, {MutableRefObject, RefObject, useContext, useEffect, useRef, useState} from 'react';
+import React, {MutableRefObject, useContext, useEffect, useRef} from 'react';
 import styled from "styled-components";
 import MessageHolder from "../MessageHolder/MessageHolder";
-import ChatHeader from "../ChatHeader/ChatHeader";
 import {Message, UserId} from "../../../interfaces/interfaces";
 import {useLatestMessage} from "../../../Hooks/Hooks";
 import {ChatContextManager} from "../../../context/chatContext";
@@ -37,14 +36,14 @@ const ChatWindow = () => {
 
   const messageList = useRef() as MutableRefObject<HTMLUListElement>;
   const {channel, chat, setChat} = useContext(ChatContextManager);
-  const {data, loading, error} = useLatestMessage(channel.channelId)
+  const {data, loading} = useLatestMessage(channel.channelId)
 
   useEffect(() => {
     if (data?.fetchLatestMessages && setChat) {
       let reversedArray = [...data.fetchLatestMessages]
       setChat(reversedArray.reverse())
     }
-  }, [data]);
+  }, [data, setChat]);
 
   useEffect(() => {
     // Ensure that chat goes to bottom when loading and posting new messages
@@ -61,19 +60,16 @@ const ChatWindow = () => {
           <Spinner/> :
           <>
             {
-              chat.map(({text, userId, messageId, datetime, error}: Message, index) => {
-
-                  return (
-                    <MessageHolder
-                      text={text}
-                      messageId={userId}
-                      datetime={new Date(datetime)}
-                      userId={userId as UserId}
-                      key={messageId ? messageId : `${index}-${userId}`}
-                      error={error}
-                    />
-                  )
-                }
+              chat.map(({text, userId, messageId, datetime, error}: Message, index) => (
+                  <MessageHolder
+                    text={text}
+                    messageId={userId}
+                    datetime={new Date(datetime)}
+                    userId={userId as UserId}
+                    key={messageId ? messageId : `${index}-${userId}`}
+                    error={error}
+                  />
+                )
               )
             }
           </>
