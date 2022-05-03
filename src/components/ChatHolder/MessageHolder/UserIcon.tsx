@@ -12,6 +12,7 @@ const UserIconHolder = styled.div<{ currentUser?: boolean }>`
   margin-left: ${props => props.currentUser ? '2em' : 0};
   text-align: center;
   color: #2196f3;
+  font-family: 'Open Sans', sans-serif;
 `
 
 const UserIcon: FC<{ userId: UserId }> = ({userId}) => {

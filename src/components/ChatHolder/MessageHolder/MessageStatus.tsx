@@ -15,6 +15,7 @@ interface MessageStatusProps {
 const MessageStatusHolder = styled.div`
   text-align: right;
   color: #2196f3;
+  font-family: 'Open Sans', sans-serif;
 `
 
 const ResendButton = styled.button`

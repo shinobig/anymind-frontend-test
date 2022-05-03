@@ -65,6 +65,11 @@ The application handles 3 main properties in the context API, the channel Id, th
 ### Components
 All of the components in this project are functional components.
 
+### Notes
+* Please note that this application is not optimized for tablet or mobile devices.
+* The Read More button will be active when there are 10 or more messages displayed.
+* There is warning related to the installation of some of the modules in the Apollo/Client, please note that this does not affect on the application at all.
+
 ### Project Structure
 
 ```bash
@@ -146,3 +151,5 @@ __root__/coverage/lcov-report/index.html
 | Statements                  | Branches                | Functions                 | Lines             |
 | --------------------------- | ----------------------- | ------------------------- | ----------------- |
 | ![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg?style=flat) | ![Branches](https://img.shields.io/badge/branches-100%25-brightgreen.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg?style=flat) |
+
+## Thank you for the opportunity!
