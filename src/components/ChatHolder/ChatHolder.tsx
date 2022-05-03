@@ -14,14 +14,12 @@ const ChatHolderContainer = styled.section`
   background-color: #e3f2fd;
 `
 
-const ChatHolder = () => {
-  return (
-    <ChatHolderContainer>
-      <ChatHeader/>
-      <ChatWindow/>
-      <TextBox/>
-    </ChatHolderContainer>
-  );
-};
+const ChatHolder = () => (
+  <ChatHolderContainer>
+    <ChatHeader/>
+    <ChatWindow/>
+    <TextBox/>
+  </ChatHolderContainer>
+);
 
 export default ChatHolder;

@@ -42,7 +42,6 @@ const Menu = () => {
     setSelectedUserId && setSelectedUserId(event.target.value as UserId)
   }
 
-
   return (
     <MenuContainer>
       <label>1. Choose your user</label>
@@ -54,7 +53,6 @@ const Menu = () => {
           users.map(user => <option value={user} key={user} id={user}>{user}</option>)
         }
       </SelectUser>
-
       <p>2. Choose your Channel</p>
       {
         channels.map(({channelName, channelId}) =>
@@ -63,7 +61,6 @@ const Menu = () => {
             channelName={channelName}
             channelId={channelId}/>)
       }
-
     </MenuContainer>
   )
 }

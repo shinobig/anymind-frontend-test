@@ -25,15 +25,11 @@ const MessageHolder: FC<Message> = ({
 
 
   const {selectedUserId, channel, chat, setChat} = useContext(ChatContextManager);
-
   const isCurrentUser = selectedUserId === userId
-
   const [createMessage] = useMutation(POST_MESSAGE)
-
 
   const resendMessage = async () => {
     let currentChat = [...chat]
-
     let messageToSend: Message = {
       text: text,
       userId: userId,
@@ -41,11 +37,8 @@ const MessageHolder: FC<Message> = ({
     }
 
     messageToSend = await postMessage(messageToSend, channel.channelId, createMessage, true)
-
-
     currentChat[currentChat.length - 1] = messageToSend
     setChat && setChat(currentChat)
-
   }
 
   if (isCurrentUser) {
@@ -65,7 +58,6 @@ const MessageHolder: FC<Message> = ({
       </MessageHolderComponent>
     )
   } else {
-
     return (
       <MessageHolderComponent isCurrentUser={isCurrentUser}>
         <UserIcon userId={userId as UserId}/>
@@ -79,7 +71,6 @@ const MessageHolder: FC<Message> = ({
       </MessageHolderComponent>
     );
   }
-
 };
 
 export default MessageHolder;

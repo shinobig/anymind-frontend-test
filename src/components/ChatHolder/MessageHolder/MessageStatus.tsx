@@ -34,7 +34,6 @@ const MessageStatus: FC<MessageStatusProps> = ({
                                                }) => {
   const hour = getHourAndMinutes(dateTime)
 
-
   return (
     <MessageStatusHolder>
       {hour}
@@ -59,7 +58,6 @@ const MessageStatus: FC<MessageStatusProps> = ({
           Resend
         </ResendButton>
       }
-
     </MessageStatusHolder>
   );
 };

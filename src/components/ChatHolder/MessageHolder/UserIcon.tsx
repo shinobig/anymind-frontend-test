@@ -4,7 +4,6 @@ import {UserId} from "../../../interfaces/interfaces";
 import {selectIcon} from "../../../utils/IconSelector";
 import {ChatContextManager} from "../../../context/chatContext";
 
-
 const UserIconHolder = styled.div<{ currentUser?: boolean }>`
   width: 70px;
   height: 70px;

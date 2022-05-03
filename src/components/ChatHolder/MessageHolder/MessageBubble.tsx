@@ -30,16 +30,13 @@ interface MessageBubbleProps {
   isCurrentUser: boolean
 }
 
-const MessageBubble: FC<MessageBubbleProps> = ({text, isCurrentUser}) => {
+const MessageBubble: FC<MessageBubbleProps> = ({text, isCurrentUser}) => (
+  <MessageBubbleHolder
+    isCurrentUser={isCurrentUser}
+  >
+    <p>{text}</p>
+  </MessageBubbleHolder>
+);
 
-  return (
-    <MessageBubbleHolder
-      isCurrentUser={isCurrentUser}
-    >
-      <p>{text}</p>
-    </MessageBubbleHolder>
-
-  );
-};
 
 export default MessageBubble;
