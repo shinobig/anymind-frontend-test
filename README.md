@@ -11,6 +11,7 @@ This is the Challenge application for AnyMind, developed by Victor Shinobi Toshi
 * Apollo/Client
 * Styled-components
 * Istanbul-badges-readme
+* React-icons
 
 
 ## Getting Started
